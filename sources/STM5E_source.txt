@@ -1,0 +1,99 @@
+Source: STM-5E – Extended Phase Grammar Specification(20260921-172819).docx
+Library identity: libfile_11f9def07cc08191ab73a037b94c7554
+Read: 2026-09-21. Extracted content snapshot, not original file bytes.
+
+<PARSED TEXT FOR PAGE: 1 / 4>
+STM-5E – Extended Phase Grammar 
+Specification
+1. Canonical Sequence
+STM-5E Pipeline:
+[\text{State} ;\rightarrow; \text{Constraint} ;\rightarrow; \text{Evaluate} ;\rightarrow; 
+\text{Choice} ;\rightarrow; \text{Propagation} ;\rightarrow; \text{Closure}]
+2. Purpose
+STM-5E extends STM-5 by introducing a dedicated Evaluation phase (E) that is structurally 
+distinct from Choice (K).
+This separation ensures:
+ Scoring ≠ Selection
+ Metrics are first-class outputs, not embedded logic
+ Systems remain auditable, modular, and testable
+3. Typed Operator Definition (Cyclic Form)
+Let:
+ ( \mathcal{S} ) = state space
+ ( \mathcal{C} ) = constraint descriptors
+ ( \mathcal{M} ) = evaluation metrics
+ ( \mathcal{U} ) = actions
+ ( \mathcal{O} ) = outcome / termination labels
+Operators
+[\begin{aligned}
+S &: \varnothing \rightarrow \mathcal{S} \
+C &: \mathcal{S} \rightarrow (\mathcal{S} \times \mathcal{C}) \
+E &: (\mathcal{S} \times \mathcal{C}) \rightarrow (\mathcal{S} \times \mathcal{C} \times 
+\mathcal{M}) \
+K &: (\mathcal{S} \times \mathcal{C} \times \mathcal{M}) \rightarrow (\mathcal{S} \times 
+<PARSED TEXT FOR PAGE: 2 / 4>
+\mathcal{C} \times \mathcal{U}) \
+P &: (\mathcal{S} \times \mathcal{U}) \rightarrow \mathcal{S} \
+T &: \mathcal{S} \rightarrow (\mathcal{S} \times \mathcal{O})
+\end{aligned}]
+4. Cyclic Execution Requirement
+For iterative systems:
+ After Propagation (P) produces a new state ( S_{t+1} ),
+ The system must re-enter through Constraint (C):
+[S_{t+1} \rightarrow C \rightarrow E \rightarrow K \rightarrow P \rightarrow T]
+Constraint is applied every cycle as an overlay.
+No external or implicit constraint injection is permitted.
+5. Preservation Properties
+(1) Choice–Propagation Separability
+There exists explicit factorization:
+[(\mathcal{S} \times \mathcal{C} \times \mathcal{M})
+;\xrightarrow{K};
+(\mathcal{S} \times \mathcal{U})
+;\xrightarrow{P};
+\mathcal{S}]
+ (K) and (P) must vary independently
+ Changing decision policy ≠ changing system dynamics
+(2) Explicit Admissibility (Cyclic)
+ Constraints are produced by a dedicated operator (C)
+ Must appear as a first-class object each cycle
+ Cannot be embedded inside (K), (E), or (P)
+<PARSED TEXT FOR PAGE: 3 / 4>
+(3) Explicit Evaluation
+ Metrics are produced by E as a separate phase
+ ( \mathcal{M} ) is observable and testable
+ Evaluation logic is not hidden inside Choice
+(4) Explicit Termination Semantics
+[T: \mathcal{S} \rightarrow (\mathcal{S} \times \mathcal{O})]
+Where ( \mathcal{O} ) includes at minimum:
+ Stable / converged
+ Constraint violation / breach
+ Continue / unresolved
+6. Structural Role of Evaluation (E)
+E introduces a non-collapsible analytical layer:
+Without E:
+ (K) = evaluate + select (coupled)
+With E:
+ (E) = compute metrics
+ (K) = select using metrics
+This enables:
+ Multi-objective optimization
+ Policy comparison (same metrics, different K)
+ Reinforcement-style reward systems
+ Full auditability of decision logic
+<PARSED TEXT FOR PAGE: 4 / 4>
+7. Relationship to STM-5
+Property STM-5 STM-5E
+Minimal (cyclic) ✅ ❌
+Evaluation explicit ❌ (embedded in 
+K) ✅
+Auditability Medium High
+Modularity Medium High
+8. Minimality Statement
+ STM-5 is minimal for cyclic systems
+ STM-5E is an extension, not a reduction
+[|\Sigma_{STM5}| = 5 \quad (\text{minimal})]
+[|\Sigma_{STM5E}| = 6 \quad (\text{expressive refinement})]
+9. Key Insight (Reviewer-Proof Framing)
+STM-5 answers:
+What is the minimum structure required for lawful cyclic dynamics?
+STM-5E answers:
+What structure makes decision-making observable, separable, and auditable?

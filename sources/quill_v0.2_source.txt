@@ -1,0 +1,555 @@
+Source: sar-three-joint-quill-v0.2.html
+Library identity: libfile_8216264db9e08191b16d995de21ebb37
+Read: 2026-09-21. Extracted content snapshot, not original file bytes.
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAR Tactile Grammar Bench — Three-Joint Quill v0.2</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: light-dark(#f5f7fa,#0c1118); --panel: light-dark(#fff,#151c25);
+      --panel2: light-dark(#eef2f7,#1b2531); --ink: light-dark(#172033,#edf3ff);
+      --muted: light-dark(#657083,#a6b2c2); --line: light-dark(#d5dce7,#344354);
+      --target: light-dark(#245fc7,#6da5ff); --actual: light-dark(#087f5b,#4ed3a0);
+      --arm: light-dark(#7636ba,#c38aff); --danger: light-dark(#ae293c,#ff7f8e);
+      --warn: light-dark(#bb6610,#ffae55); --shadow: light-dark(rgba(20,30,50,.08),rgba(0,0,0,.28));
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    button,input,select { font:inherit; }
+    button,input[type="number"],select { color:var(--ink); background:var(--panel); border:1px solid var(--line); border-radius:9px; }
+    button { min-height:40px; padding:8px 12px; cursor:pointer; }
+    button:hover { background:var(--panel2); }
+    button:focus-visible,input:focus-visible,select:focus-visible { outline:3px solid color-mix(in srgb,var(--target) 44%,transparent); outline-offset:2px; }
+    button[aria-pressed="true"],.primary { color:light-dark(#fff,#07162e); background:var(--target); border-color:var(--target); }
+    input[type="range"] { width:100%; accent-color:var(--target); }
+    input[type="number"],select { width:100%; min-height:38px; padding:6px 8px; }
+    .app { width:min(1460px,100%); margin:auto; padding:22px; }
+    header { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:16px; }
+    h1 { margin:0; font-size:clamp(1.35rem,2.1vw,2rem); line-height:1.15; font-weight:650; }
+    h2 { margin:0 0 10px; font-size:1rem; }
+    p { margin:6px 0 0; }
+    .eyebrow { color:var(--muted); font-size:.81rem; letter-spacing:.085em; text-transform:uppercase; }
+    .subtitle { color:var(--muted); max-width:80ch; }
+    .version { color:var(--muted); white-space:nowrap; }
+    .workspace { display:grid; grid-template-columns:minmax(0,1.62fr) minmax(320px,.88fr); gap:16px; align-items:start; }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; box-shadow:0 8px 24px var(--shadow); }
+    .stage-panel { overflow:hidden; }
+    .toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:12px; border-bottom:1px solid var(--line); }
+    .toolbar-label { color:var(--muted); }
+    .stage-wrap { position:relative; background:var(--panel2); }
+    #stage { display:block; width:100%; height:auto; aspect-ratio:760/520; touch-action:manipulation; }
+    .stage-note { position:absolute; left:12px; bottom:10px; padding:5px 8px; margin:0; border-radius:7px; color:var(--muted); background:color-mix(in srgb,var(--panel) 88%,transparent); font-size:.79rem; }
+    .legend { position:absolute; right:12px; top:10px; display:flex; flex-wrap:wrap; gap:9px; padding:6px 8px; border-radius:8px; background:color-mix(in srgb,var(--panel) 88%,transparent); color:var(--muted); font-size:.76rem; }
+    .swatch { display:inline-block; width:18px; height:3px; margin-right:4px; vertical-align:middle; border-radius:2px; }
+    .stats { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); border-top:1px solid var(--line); }
+    .stat { min-width:0; padding:10px 11px; }
+    .stat+.stat { border-left:1px solid var(--line); }
+    .stat-label { display:block; color:var(--muted); font-size:.76rem; }
+    .stat-value { display:block; margin-top:2px; font-size:1.02rem; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .controls { padding:14px; }
+    .section+.section { margin-top:17px; padding-top:15px; border-top:1px solid var(--line); }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+    .control { min-width:0; }
+    .full { grid-column:1/-1; }
+    label { display:block; color:var(--muted); font-size:.82rem; }
+    .label-row { display:flex; justify-content:space-between; gap:8px; margin-bottom:4px; }
+    output { color:var(--ink); font-variant-numeric:tabular-nums; }
+    .pair { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .pair-label { margin-bottom:4px; color:var(--muted); font-size:.8rem; }
+    .actions { display:flex; flex-wrap:wrap; gap:8px; }
+    .help,.status { color:var(--muted); font-size:.8rem; }
+    .status.error { color:var(--danger); }
+    .playrow { display:grid; grid-template-columns:auto auto 1fr auto; gap:8px; align-items:center; }
+    .index { min-width:76px; text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; }
+    .ablation { margin-top:16px; padding:14px; }
+    .ablation-head { display:flex; justify-content:space-between; gap:16px; align-items:baseline; flex-wrap:wrap; }
+    .ablation-head p { color:var(--muted); font-size:.82rem; }
+    .finding { margin-top:10px; padding:10px 12px; border-radius:9px; background:var(--panel2); color:var(--ink); }
+    .lower { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr); gap:16px; margin-top:16px; }
+    .ledger,.model { padding:14px; }
+    .table-wrap { overflow:auto; max-height:360px; }
+    table { width:100%; border-collapse:collapse; font-size:.82rem; }
+    th,td { padding:8px 9px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th:first-child,td:first-child,th:nth-child(2),td:nth-child(2) { text-align:left; }
+    th { color:var(--muted); font-weight:550; position:sticky; top:0; background:var(--panel); }
+    .empty { color:var(--muted); text-align:left!important; }
+    .equation { overflow:auto; padding:10px 11px; border-radius:10px; background:var(--panel2); font:.84rem/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .model ul { margin:11px 0 0; padding-left:20px; color:var(--muted); }
+    .model li+li { margin-top:6px; }
+    .callout { margin-top:12px; padding:10px 11px; border-left:3px solid var(--actual); border-radius:7px; background:var(--panel2); font-size:.83rem; }
+    .envelope { fill:none; stroke:var(--line); stroke-width:1.5; stroke-dasharray:7 6; }
+    .target-path { fill:none; stroke:var(--target); stroke-width:4.5; stroke-linecap:round; stroke-linejoin:round; opacity:.83; }
+    .actual-path { fill:none; stroke:var(--actual); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+    .error-spoke { stroke:var(--danger); stroke-width:1.2; opacity:.48; }
+    .fail-dot { fill:var(--danger); opacity:.72; }
+    .link { stroke:var(--arm); stroke-width:13; stroke-linecap:round; }
+    .link-core { stroke:color-mix(in srgb,var(--panel) 55%,var(--arm)); stroke-width:4; stroke-linecap:round; }
+    .ghost-link { stroke:var(--arm); stroke-width:7; stroke-linecap:round; stroke-dasharray:7 7; opacity:.35; }
+    .ghost-joint { fill:var(--panel); stroke:var(--arm); stroke-width:2; opacity:.5; }
+    .joint { fill:var(--panel); stroke:var(--arm); stroke-width:4; }
+    .base { fill:var(--ink); stroke:var(--panel); stroke-width:3; }
+    .quill { stroke:var(--warn); stroke-width:4; stroke-linecap:round; }
+    .tip { fill:var(--actual); stroke:var(--panel); stroke-width:2; }
+    .target-now { fill:none; stroke:var(--target); stroke-width:3; }
+    .orient-guide { stroke:var(--target); stroke-width:2; stroke-dasharray:4 3; }
+    .pose-label { fill:var(--ink); font-size:12px; paint-order:stroke; stroke:var(--panel); stroke-width:4px; }
+    .badge { display:inline-block; padding:2px 7px; border-radius:999px; background:var(--panel2); color:var(--muted); font-size:.75rem; }
+    footer { margin-top:14px; color:var(--muted); text-align:center; font-size:.79rem; }
+    @media (max-width:980px) { .workspace,.lower { grid-template-columns:1fr; } .controls .grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+    @media (max-width:680px) { .app{padding:12px} header{display:block}.version{margin-top:8px}.controls .grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat+.stat{border-left:0}.stat:nth-child(even){border-left:1px solid var(--line)}.stat:nth-child(n+3){border-top:1px solid var(--line)}.legend{display:none} }
+    @media (max-width:430px) { .controls .grid{grid-template-columns:1fr}.full{grid-column:auto}.playrow{grid-template-columns:auto auto 1fr}.index{grid-column:1/-1;text-align:left} }
+  </style>
+</head>
+<body>
+<main class="app">
+  <header>
+    <div>
+      <div class="eyebrow">SAR Tactile Grammar Bench</div>
+      <h1>Three-Joint Quill</h1>
+      <p class="subtitle">A constrained inverse-kinematics bench: the target stroke γ stays fixed while two-control point tracking is tested against three-control pose tracking, with both elbow branches kept visible.</p>
+    </div>
+    <div class="version">v0.2 · recovery set Γ</div>
+  </header>
+
+  <section class="workspace">
+    <div class="panel stage-panel">
+      <div class="toolbar" aria-label="Trace presets and import">
+        <span class="toolbar-label">Target γ</span>
+        <button type="button" data-preset="line">Line</button>
+        <button type="button" data-preset="arc">Arc</button>
+        <button type="button" data-preset="closure">π Closure</button>
+        <button type="button" data-preset="load">Load bend</button>
+        <input id="file-input" type="file" accept="application/json,.json" hidden>
+        <button id="import-button" type="button">Import CSG JSON</button>
+        <button id="place-base" type="button" aria-pressed="false" style="margin-left:auto">Place shoulder</button>
+      </div>
+      <div class="stage-wrap">
+        <svg id="stage" viewBox="0 0 760 520" role="img" aria-labelledby="stage-title stage-desc">
+          <title id="stage-title">Three-joint quill following a target stroke</title>
+          <desc id="stage-desc">The blue curve is immutable target geometry, the green curve is the quill-tip solution, and red marks show constraint failures.</desc>
+          <g id="envelope-layer" aria-hidden="true"><circle id="outer-envelope" class="envelope"></circle><circle id="inner-envelope" class="envelope"></circle></g>
+          <path id="target-path" class="target-path"></path>
+          <g id="error-layer"></g>
+          <path id="actual-path" class="actual-path"></path>
+          <g id="pose-layer">
+            <g id="ghost-arm" aria-label="Alternate legal recovery">
+              <line id="ghost1" class="ghost-link"></line><line id="ghost2" class="ghost-link"></line><line id="ghost3" class="ghost-link"></line>
+              <circle id="ghost-joint1" class="ghost-joint" r="6"></circle><circle id="ghost-joint2" class="ghost-joint" r="5"></circle>
+            </g>
+            <line id="link1" class="link"></line><line id="link1-core" class="link-core"></line>
+            <line id="link2" class="link"></line><line id="link2-core" class="link-core"></line>
+            <line id="link3" class="link"></line><line id="link3-core" class="link-core"></line>
+            <circle id="base-mark" class="base" r="9"></circle>
+            <circle id="joint1" class="joint" r="8"></circle><circle id="joint2" class="joint" r="7"></circle>
+            <line id="quill" class="quill"></line><circle id="tip" class="tip" r="6"></circle>
+            <circle id="target-now" class="target-now" r="9"></circle><line id="orient-guide" class="orient-guide"></line>
+            <text id="pose-label" class="pose-label"></text>
+          </g>
+        </svg>
+        <div class="legend"><span><i class="swatch" style="background:var(--target)"></i>target γ</span><span><i class="swatch" style="background:var(--actual)"></i>quill tip</span><span><i class="swatch" style="background:var(--danger)"></i>failure</span></div>
+        <p id="stage-note" class="stage-note">Target geometry is never warped to fit the arm.</p>
+      </div>
+      <div class="toolbar playrow" aria-label="Traversal controls">
+        <button id="play" type="button">Play</button><button id="step" type="button">Step</button>
+        <input id="scrubber" type="range" min="0" max="1" value="0" step="1" aria-label="Traversal index">
+        <span id="index-label" class="index">k 0 / 0</span>
+      </div>
+      <div class="stats" aria-live="polite">
+        <div class="stat"><span class="stat-label">Pose reachable</span><span id="stat-reach" class="stat-value">—</span></div>
+        <div class="stat"><span class="stat-label">Mean position error</span><span id="stat-mean" class="stat-value">—</span></div>
+        <div class="stat"><span class="stat-label">Max position error</span><span id="stat-max" class="stat-value">—</span></div>
+        <div class="stat"><span class="stat-label">Mean tangent error</span><span id="stat-angle" class="stat-value">—</span></div>
+        <div class="stat"><span class="stat-label">Actual / target length</span><span id="stat-ratio" class="stat-value">—</span></div>
+        <div class="stat"><span class="stat-label">Two legal branches</span><span id="stat-branches" class="stat-value">—</span></div>
+      </div>
+    </div>
+
+    <aside class="panel controls" aria-label="Quill controls">
+      <div class="section">
+        <h2>Displayed recovery</h2>
+        <div class="grid">
+          <div class="control full"><label for="task-mode">Control task</label><select id="task-mode"><option value="pose">3 joints · position + tangent</option><option value="point">2 active joints · position only</option></select></div>
+        </div>
+        <p class="help">The comparison is always computed. This selector changes only which lawful recovery is drawn.</p>
+      </div>
+      <div class="section">
+        <h2>Link geometry</h2>
+        <div class="grid">
+          <div class="control"><label class="label-row" for="l1"><span>Upper arm L₁</span><output id="l1-out"></output></label><input id="l1" type="range" min="50" max="240" step="1" value="175"></div>
+          <div class="control"><label class="label-row" for="l2"><span>Forearm L₂</span><output id="l2-out"></output></label><input id="l2" type="range" min="50" max="240" step="1" value="150"></div>
+          <div class="control"><label class="label-row" for="l3"><span>Hand / quill L₃</span><output id="l3-out"></output></label><input id="l3" type="range" min="20" max="150" step="1" value="85"></div>
+          <div class="control"><label class="label-row" for="orientation-weight"><span>Tangent leverage</span><output id="orientation-weight-out"></output></label><input id="orientation-weight" type="range" min="5" max="120" step="1" value="55"></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Joint limits <span class="badge">degrees</span></h2>
+        <div class="grid">
+          <div class="control full"><div class="pair-label">q₁ · shoulder</div><div class="pair"><input id="q1-min" type="number" min="-360" max="360" value="-170" aria-label="Shoulder minimum"><input id="q1-max" type="number" min="-360" max="360" value="170" aria-label="Shoulder maximum"></div></div>
+          <div class="control full"><div class="pair-label">q₂ · elbow</div><div class="pair"><input id="q2-min" type="number" min="-360" max="360" value="-150" aria-label="Elbow minimum"><input id="q2-max" type="number" min="-360" max="360" value="150" aria-label="Elbow maximum"></div></div>
+          <div class="control full"><div class="pair-label">q₃ · wrist</div><div class="pair"><input id="q3-min" type="number" min="-360" max="360" value="-170" aria-label="Wrist minimum"><input id="q3-max" type="number" min="-360" max="360" value="170" aria-label="Wrist maximum"></div></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Acceptance</h2>
+        <div class="grid">
+          <div class="control"><label for="position-tolerance">Position tolerance</label><input id="position-tolerance" type="number" min="0.1" max="50" step="0.1" value="2"></div>
+          <div class="control"><label for="angle-tolerance">Tangent tolerance (°)</label><input id="angle-tolerance" type="number" min="0.1" max="45" step="0.1" value="3"></div>
+        </div>
+        <p class="help">A sample passes only when both tolerances pass. Tight limits expose the arm’s failures; they do not alter γ.</p>
+      </div>
+      <div class="section">
+        <h2>Run data</h2>
+        <div class="actions"><button id="export-json" class="primary" type="button">Export run JSON</button><button id="export-svg" type="button">Export SVG</button></div>
+        <p id="status" class="status" role="status">Ready.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="panel ablation">
+    <div class="ablation-head"><div><h2>Minimum-control ablation</h2><p>Same γ, link lengths, base, and joint bounds; only the controlled variables change.</p></div><span class="badge">no target fitting</span></div>
+    <div class="table-wrap"><table><thead><tr><th>model</th><th>active controls</th><th>controlled output</th><th>accepted</th><th>mean Δx</th><th>mean Δψ</th><th>|Γ| = 2</th><th>branch switches</th></tr></thead><tbody id="ablation-body"></tbody></table></div>
+    <div id="ablation-finding" class="finding">Run pending.</div>
+  </section>
+
+  <section class="lower">
+    <div class="panel ledger">
+      <h2>Constraint ledger</h2>
+      <p class="help">Contiguous failures for the displayed recovery are grouped without hiding their worst residual. Active joints are limits touched by the best lawful solution.</p>
+      <div class="table-wrap"><table><thead><tr><th>k range</th><th>cause</th><th>samples</th><th>max Δx</th><th>max Δψ</th><th>active joints</th></tr></thead><tbody id="ledger-body"><tr><td colspan="6" class="empty">No run yet.</td></tr></tbody></table></div>
+    </div>
+    <aside class="panel model">
+      <h2>Minimal model</h2>
+      <div class="equation">A0: q₃ = 0; y = (x,y); rank J ≤ 2<br>A1: q = (q₁,q₂,q₃); y = (x,y,ψ); rank J ≤ 3<br>ψ = q₁ + q₂ + q₃<br>Γ(y) = {q ∈ Q : F(q)=y}</div>
+      <ul>
+        <li>Three is earned only when planar pose has three controlled coordinates: x, y, and tangent ψ.</li>
+        <li>With position alone, the wrist is locked and two active joints are tested against x and y.</li>
+        <li>Locking the wrist also changes the reachable workspace, so acceptance percentages diagnose this mechanism—not a universal two-versus-three law.</li>
+        <li>A dashed ghost arm means a second lawful joint recovery reaches the same observed target.</li>
+        <li>Candidate grammar: DIT initiates one distinction; DAH is its continued admissible propagation—not three disconnected DITs.</li>
+        <li>π enters only through angle and closure geometry. φ and 3–6–9 are not assumed.</li>
+        <li>The solver is diagnostic: unreachable samples remain visible as residuals.</li>
+        <li>Playback shows traversal order, not measured time or velocity.</li>
+      </ul>
+      <div class="callout"><strong>Finesse over force:</strong> change the arm, its placement, or its limits—never silently bend the evidence to make it fit.</div>
+    </aside>
+  </section>
+  <footer>v0.2 control ablation · separate kinematic layer for the frozen Constrained Stroke Generator · coordinate units are abstract.</footer>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const NS = 'http://www.w3.org/2000/svg';
+  const $ = id => document.getElementById(id);
+  const stage = $('stage');
+  const controls = {
+    taskMode:$('task-mode'),
+    l1:$('l1'), l2:$('l2'), l3:$('l3'), orientationWeight:$('orientation-weight'),
+    q1Min:$('q1-min'), q1Max:$('q1-max'), q2Min:$('q2-min'), q2Max:$('q2-max'), q3Min:$('q3-min'), q3Max:$('q3-max'),
+    positionTolerance:$('position-tolerance'), angleTolerance:$('angle-tolerance')
+  };
+  const state = {
+    base:{x:360,y:448}, target:[], targetName:'', sourceSchema:'built-in', solution:null,
+    index:0, placing:false, renderFrame:0, playing:false, playFrame:0, lastPlay:0
+  };
+
+  const rad = d => d*Math.PI/180;
+  const deg = r => r*180/Math.PI;
+  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+  const hypot = (a,b) => Math.hypot(a.x-b.x,a.y-b.y);
+  function wrap(a){ while(a<=-Math.PI)a+=2*Math.PI; while(a>Math.PI)a-=2*Math.PI; return a; }
+  function fmt(v,n=1){ return Number.isFinite(v) ? Number(v).toFixed(n) : '—'; }
+  function pathData(points){ return points.length ? points.map((p,i)=>`${i?'L':'M'}${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' ') : ''; }
+  function pathLength(points){ let s=0; for(let i=1;i<points.length;i++)s+=hypot(points[i],points[i-1]); return s; }
+  function line(el,a,b){ el.setAttribute('x1',a.x); el.setAttribute('y1',a.y); el.setAttribute('x2',b.x); el.setAttribute('y2',b.y); }
+
+  function readConfig(){
+    const mins=[controls.q1Min,controls.q2Min,controls.q3Min].map(e=>rad(Number(e.value)));
+    const maxs=[controls.q1Max,controls.q2Max,controls.q3Max].map(e=>rad(Number(e.value)));
+    for(let i=0;i<3;i++) if(mins[i]>maxs[i]) [mins[i],maxs[i]]=[maxs[i],mins[i]];
+    return {
+      lengths:[Number(controls.l1.value),Number(controls.l2.value),Number(controls.l3.value)], mins,maxs,
+      orientationWeight:Number(controls.orientationWeight.value), positionTolerance:Math.max(.01,Number(controls.positionTolerance.value)),
+      angleTolerance:rad(Math.max(.01,Number(controls.angleTolerance.value)))
+    };
+  }
+
+  function tangentize(points){
+    return points.map((p,i)=>{
+      if(Number.isFinite(p.psi)) return {...p,psi:wrap(p.psi)};
+      const a=points[Math.max(0,i-1)], b=points[Math.min(points.length-1,i+1)];
+      return {...p,psi:Math.atan2(b.y-a.y,b.x-a.x)};
+    });
+  }
+
+  const presets = {
+    line(){ const a={x:145,y:245},b={x:610,y:245},n=180; return tangentize(Array.from({length:n},(_,i)=>({x:a.x+(b.x-a.x)*i/(n-1),y:a.y}))); },
+    arc(){ const c={x:370,y:300},r=165,a0=rad(205),a1=rad(335),n=220; return Array.from({length:n},(_,i)=>{const a=a0+(a1-a0)*i/(n-1);return{x:c.x+r*Math.cos(a),y:c.y+r*Math.sin(a),psi:wrap(a+Math.PI/2)}}); },
+    closure(){ const c={x:380,y:250},r=142,n=361; return Array.from({length:n},(_,i)=>{const a=-Math.PI/2+2*Math.PI*i/(n-1);return{x:c.x+r*Math.cos(a),y:c.y+r*Math.sin(a),psi:wrap(a+Math.PI/2)}}); },
+    load(){ let x=150,y=355,psi=rad(-24); const pts=[]; for(let i=0;i<250;i++){pts.push({x,y,psi});const ds=2.3;psi+=rad(.014*i);x+=ds*Math.cos(psi);y+=ds*Math.sin(psi);} return pts; }
+  };
+
+  function fk(q,cfg){
+    const [l1,l2,l3]=cfg.lengths, a1=q[0],a2=q[0]+q[1],a3=a2+q[2],b=state.base;
+    const p1={x:b.x+l1*Math.cos(a1),y:b.y+l1*Math.sin(a1)};
+    const p2={x:p1.x+l2*Math.cos(a2),y:p1.y+l2*Math.sin(a2)};
+    const p3={x:p2.x+l3*Math.cos(a3),y:p2.y+l3*Math.sin(a3)};
+    return {base:{...b},p1,p2,p3,psi:wrap(a3)};
+  }
+
+  function solve3(A,b){
+    const m=A.map((row,i)=>[...row,b[i]]);
+    for(let col=0;col<3;col++){
+      let pivot=col; for(let r=col+1;r<3;r++) if(Math.abs(m[r][col])>Math.abs(m[pivot][col])) pivot=r;
+      if(Math.abs(m[pivot][col])<1e-10) return [0,0,0];
+      [m[col],m[pivot]]=[m[pivot],m[col]];
+      const d=m[col][col]; for(let j=col;j<4;j++)m[col][j]/=d;
+      for(let r=0;r<3;r++)if(r!==col){const f=m[r][col];for(let j=col;j<4;j++)m[r][j]-=f*m[col][j];}
+    }
+    return [m[0][3],m[1][3],m[2][3]];
+  }
+
+  function nearestEquivalent(a,ref){ return a+Math.round((ref-a)/(2*Math.PI))*2*Math.PI; }
+  function admissibleEquivalent(a,ref,lo,hi){
+    const legal=[];for(let n=-2;n<=2;n++){const v=a+n*2*Math.PI;if(v>=lo-1e-9&&v<=hi+1e-9)legal.push(v);}
+    if(legal.length)return legal.sort((u,v)=>Math.abs(u-ref)-Math.abs(v-ref))[0];
+    return clamp(nearestEquivalent(a,ref),lo,hi);
+  }
+  function clampQ(q,cfg){ return q.map((v,i)=>clamp(v,cfg.mins[i],cfg.maxs[i])); }
+  function objective(q,t,cfg){ const p=fk(q,cfg); const pe=Math.hypot(t.x-p.p3.x,t.y-p.p3.y), ae=Math.abs(wrap(t.psi-p.psi)); return pe*pe+(cfg.orientationWeight*ae)**2; }
+
+  function analyticSeeds(t,prev,cfg){
+    const [l1,l2,l3]=cfg.lengths, wx=t.x-l3*Math.cos(t.psi), wy=t.y-l3*Math.sin(t.psi);
+    const dx=wx-state.base.x,dy=wy-state.base.y,r=Math.hypot(dx,dy);
+    const raw=(r*r-l1*l1-l2*l2)/(2*l1*l2),cc=clamp(raw,-1,1), seeds=[];
+    for(const sign of [1,-1]){
+      const q2=sign*Math.acos(cc), q1=Math.atan2(dy,dx)-Math.atan2(l2*Math.sin(q2),l1+l2*Math.cos(q2));
+      const base=[q1,q2,t.psi-q1-q2].map((v,i)=>admissibleEquivalent(v,prev[i],cfg.mins[i],cfg.maxs[i]));
+      seeds.push({q:clampQ(base,cfg),branch:sign>0?'elbow +':'elbow −'});
+    }
+    return {seeds,wristRadius:r,geometricReach:raw>=-1-1e-9&&raw<=1+1e-9};
+  }
+
+  function refine(seed,t,cfg){
+    let q=[...seed], activeHits=new Set();
+    for(let iter=0;iter<36;iter++){
+      const pose=fk(q,cfg), e=[t.x-pose.p3.x,t.y-pose.p3.y,cfg.orientationWeight*wrap(t.psi-pose.psi)];
+      if(Math.hypot(e[0],e[1])<.01&&Math.abs(e[2])<.002) break;
+      const [l1,l2,l3]=cfg.lengths,a1=q[0],a2=q[0]+q[1],a3=a2+q[2],w=cfg.orientationWeight;
+      const J=[
+        [-l1*Math.sin(a1)-l2*Math.sin(a2)-l3*Math.sin(a3),-l2*Math.sin(a2)-l3*Math.sin(a3),-l3*Math.sin(a3)],
+        [ l1*Math.cos(a1)+l2*Math.cos(a2)+l3*Math.cos(a3), l2*Math.cos(a2)+l3*Math.cos(a3), l3*Math.cos(a3)],
+        [w,w,w]
+      ];
+      const lambda=3.5, A=Array.from({length:3},(_,r)=>Array.from({length:3},(_,c)=>J[r][0]*J[c][0]+J[r][1]*J[c][1]+J[r][2]*J[c][2]+(r===c?lambda*lambda:0)));
+      const z=solve3(A,e), dq=[0,1,2].map(c=>J[0][c]*z[0]+J[1][c]*z[1]+J[2][c]*z[2]);
+      for(let i=0;i<3;i++){
+        q[i]+=clamp(dq[i],-.28,.28);
+        const before=q[i]; q[i]=clamp(q[i],cfg.mins[i],cfg.maxs[i]); if(q[i]!==before)activeHits.add(i);
+      }
+    }
+    return {q,activeHits};
+  }
+
+  function evaluatePose(q,t,cfg,branch){
+    const pose=fk(q,cfg),positionError=hypot(pose.p3,t),angleError=Math.abs(wrap(pose.psi-t.psi));
+    const active=[]; for(let i=0;i<3;i++) if(Math.min(Math.abs(q[i]-cfg.mins[i]),Math.abs(q[i]-cfg.maxs[i]))<rad(.45))active.push(`q${i+1}`);
+    return {q,pose,positionError,angleError,pass:positionError<=cfg.positionTolerance&&angleError<=cfg.angleTolerance,active,branch:branch||(q[1]>=0?'elbow +':'elbow −'),singularity:Math.abs(Math.sin(q[1]))<.025};
+  }
+
+  function solvePose(t,prev,cfg){
+    const analytic=analyticSeeds(t,prev,cfg),candidates=[];
+    for(const seed of analytic.seeds){const refined=refine(seed.q,t,cfg);candidates.push(evaluatePose(refined.q,t,cfg,seed.branch));}
+    const carry=refine(clampQ([...prev],cfg),t,cfg);candidates.push(evaluatePose(carry.q,t,cfg));
+    let best=null;
+    for(const candidate of candidates){const score=objective(candidate.q,t,cfg)+.015*candidate.q.reduce((s,v,i)=>s+(v-prev[i])**2,0);if(!best||score<best.score)best={...candidate,score};}
+    const recovery=[];
+    for(const candidate of candidates.slice(0,2))if(candidate.pass&&!recovery.some(r=>r.branch===candidate.branch))recovery.push(candidate);
+    best.recovery=recovery;best.branchCount=recovery.length;best.alternate=recovery.find(r=>r.branch!==best.branch)||null;
+    const {positionError,angleError,active,singularity}=best;
+    const pass=positionError<=cfg.positionTolerance&&angleError<=cfg.angleTolerance;
+    let cause='pass';
+    if(!pass){
+      const [l1,l2]=cfg.lengths;
+      if(analytic.wristRadius>l1+l2+.01)cause='outer pose reach';
+      else if(analytic.wristRadius<Math.abs(l1-l2)-.01)cause='inner pose reach';
+      else if(active.length)cause='joint limit';
+      else if(singularity)cause='singularity';
+      else cause='coupled pose mismatch';
+    }
+    return {...best,pass,cause,wristRadius:analytic.wristRadius,geometricReach:analytic.geometricReach};
+  }
+
+  function pointSeeds(t,prev,cfg){
+    const [l1,l2,l3]=cfg.lengths,q3=clamp(0,cfg.mins[2],cfg.maxs[2]),l23=Math.hypot(l2+l3*Math.cos(q3),l3*Math.sin(q3)),beta=Math.atan2(l3*Math.sin(q3),l2+l3*Math.cos(q3)),dx=t.x-state.base.x,dy=t.y-state.base.y,r=Math.hypot(dx,dy);
+    const raw=(r*r-l1*l1-l23*l23)/(2*l1*l23),cc=clamp(raw,-1,1),seeds=[];
+    for(const sign of [1,-1]){
+      const q2eff=sign*Math.acos(cc),q2=q2eff-beta,q1=Math.atan2(dy,dx)-Math.atan2(l23*Math.sin(q2eff),l1+l23*Math.cos(q2eff));
+      seeds.push({q:clampQ([admissibleEquivalent(q1,prev[0],cfg.mins[0],cfg.maxs[0]),admissibleEquivalent(q2,prev[1],cfg.mins[1],cfg.maxs[1]),q3],cfg),branch:sign>0?'elbow +':'elbow −'});
+    }
+    return {seeds,radius:r,outer:l1+l23,inner:Math.abs(l1-l23),beta};
+  }
+
+  function refinePoint(seed,t,cfg){
+    let q=[seed[0],seed[1],clamp(0,cfg.mins[2],cfg.maxs[2])];
+    for(let iter=0;iter<32;iter++){
+      const p=fk(q,cfg),ex=t.x-p.p3.x,ey=t.y-p.p3.y;if(Math.hypot(ex,ey)<.01)break;
+      const [l1,l2,l3]=cfg.lengths,a1=q[0],a2=q[0]+q[1],a3=a2+q[2];
+      const j00=-l1*Math.sin(a1)-l2*Math.sin(a2)-l3*Math.sin(a3),j01=-l2*Math.sin(a2)-l3*Math.sin(a3);
+      const j10= l1*Math.cos(a1)+l2*Math.cos(a2)+l3*Math.cos(a3),j11= l2*Math.cos(a2)+l3*Math.cos(a3);
+      const lambda=2.5,a=j00*j00+j10*j10+lambda*lambda,b=j00*j01+j10*j11,d=j01*j01+j11*j11+lambda*lambda;
+      const r0=j00*ex+j10*ey,r1=j01*ex+j11*ey,det=a*d-b*b;
+      if(Math.abs(det)<1e-9)break;
+      q[0]=clamp(q[0]+clamp((d*r0-b*r1)/det,-.3,.3),cfg.mins[0],cfg.maxs[0]);
+      q[1]=clamp(q[1]+clamp((a*r1-b*r0)/det,-.3,.3),cfg.mins[1],cfg.maxs[1]);
+    }
+    return q;
+  }
+
+  function solvePoint(t,prev,cfg){
+    const analytic=pointSeeds(t,prev,cfg),candidates=analytic.seeds.map(seed=>evaluatePose(refinePoint(seed.q,t,cfg),t,cfg,seed.branch));
+    const carry=evaluatePose(refinePoint(prev,t,cfg),t,cfg),all=[...candidates,carry];let best=null;
+    for(const candidate of all){const score=candidate.positionError**2+.015*candidate.q.reduce((s,v,i)=>s+(v-prev[i])**2,0);if(!best||score<best.score)best={...candidate,score};}
+    for(const candidate of all)candidate.pass=candidate.positionError<=cfg.positionTolerance;
+    const recovery=[];for(const candidate of candidates)if(candidate.pass&&!recovery.some(r=>r.branch===candidate.branch))recovery.push(candidate);
+    best.pass=best.positionError<=cfg.positionTolerance;best.recovery=recovery;best.branchCount=recovery.length;best.alternate=recovery.find(r=>r.branch!==best.branch)||null;best.singularity=Math.abs(Math.sin(best.q[1]+analytic.beta))<.025;
+    let cause='pass';if(!best.pass){if(analytic.radius>analytic.outer+.01)cause='outer point reach';else if(analytic.radius<analytic.inner-.01)cause='inner point reach';else if(best.active.length)cause='joint limit';else if(best.singularity)cause='singularity';else cause='point mismatch';}
+    return {...best,cause,wristRadius:analytic.radius,geometricReach:analytic.radius>=analytic.inner-.01&&analytic.radius<=analytic.outer+.01};
+  }
+
+  function buildLedger(samples){
+    const rows=[]; let run=null;
+    for(let i=0;i<samples.length;i++){
+      const s=samples[i];
+      if(s.pass){ if(run){rows.push(run);run=null;} continue; }
+      const key=`${s.cause}|${s.active.join(',')}`;
+      if(!run||run.key!==key){ if(run)rows.push(run); run={key,start:i,end:i,cause:s.cause,count:1,maxPosition:s.positionError,maxAngle:s.angleError,active:s.active.join(', ')||'—'}; }
+      else { run.end=i;run.count++;run.maxPosition=Math.max(run.maxPosition,s.positionError);run.maxAngle=Math.max(run.maxAngle,s.angleError); }
+    }
+    if(run)rows.push(run); return rows;
+  }
+
+  function summarize(samples,cfg){
+    const passed=samples.filter(s=>s.pass).length;
+    const meanPosition=samples.reduce((a,s)=>a+s.positionError,0)/Math.max(1,samples.length);
+    const meanAngle=samples.reduce((a,s)=>a+s.angleError,0)/Math.max(1,samples.length);
+    const maxPosition=Math.max(0,...samples.map(s=>s.positionError));
+    const targetLength=pathLength(state.target),actualLength=pathLength(samples.map(s=>s.pose.p3));
+    const twoBranch=samples.filter(s=>s.branchCount===2).length;let branchSwitches=0,last=null;
+    for(const s of samples)if(s.pass){if(last&&last!==s.branch)branchSwitches++;last=s.branch;}
+    return {config:cfg,samples,ledger:buildLedger(samples),metrics:{passed,total:samples.length,reachableFraction:passed/Math.max(1,samples.length),meanPosition,maxPosition,meanAngle,targetLength,actualLength,lengthRatio:actualLength/Math.max(1e-9,targetLength),twoBranch,twoBranchFraction:twoBranch/Math.max(1,samples.length),branchSwitches}};
+  }
+
+  function solveTrace(){
+    const cfg=readConfig(),poseSamples=[],pointSamples=[];let posePrev=clampQ([rad(-95),rad(70),rad(25)],cfg),pointPrev=clampQ([rad(-95),rad(70),0],cfg);
+    for(const t of state.target){const pose=solvePose(t,posePrev,cfg),point=solvePoint(t,pointPrev,cfg);poseSamples.push({...pose,target:{...t}});pointSamples.push({...point,target:{...t}});posePrev=pose.q;pointPrev=point.q;}
+    state.solution={config:cfg,cases:{pose:summarize(poseSamples,cfg),point:summarize(pointSamples,cfg)}};
+    state.index=clamp(state.index,0,Math.max(0,state.target.length-1));
+  }
+
+  function activeSolution(){return state.solution.cases[controls.taskMode.value]||state.solution.cases.pose;}
+
+  function setAttrs(el,attrs){ for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v); }
+  function drawErrors(){
+    const layer=$('error-layer'); layer.replaceChildren(); if(!state.solution)return;const active=activeSolution();
+    const failed=active.samples.map((s,i)=>({s,i})).filter(v=>!v.s.pass),stride=Math.max(1,Math.ceil(failed.length/90));
+    failed.forEach(({s},j)=>{ if(j%stride)return; const spoke=document.createElementNS(NS,'line');spoke.setAttribute('class','error-spoke');line(spoke,s.target,s.pose.p3);layer.appendChild(spoke);const dot=document.createElementNS(NS,'circle');setAttrs(dot,{class:'fail-dot',cx:s.target.x,cy:s.target.y,r:2.8});layer.appendChild(dot); });
+  }
+
+  function drawStatic(){
+    const cfg=state.solution.config,b=state.base,outer=cfg.lengths.reduce((a,v)=>a+v,0),longest=Math.max(...cfg.lengths),inner=Math.max(0,2*longest-outer);
+    setAttrs($('outer-envelope'),{cx:b.x,cy:b.y,r:outer});setAttrs($('inner-envelope'),{cx:b.x,cy:b.y,r:inner});
+    $('inner-envelope').style.display=inner>.5?'':'none';
+    const active=activeSolution();$('target-path').setAttribute('d',pathData(state.target));$('actual-path').setAttribute('d',pathData(active.samples.map(s=>s.pose.p3)));drawErrors();
+  }
+
+  function drawPose(){
+    if(!state.solution)return;const active=activeSolution();if(!active.samples.length)return;const i=clamp(state.index,0,active.samples.length-1),s=active.samples[i],p=s.pose,t=s.target;
+    line($('link1'),p.base,p.p1);line($('link1-core'),p.base,p.p1);line($('link2'),p.p1,p.p2);line($('link2-core'),p.p1,p.p2);line($('link3'),p.p2,p.p3);line($('link3-core'),p.p2,p.p3);
+    if(s.alternate){const g=s.alternate.pose;$('ghost-arm').style.display='';line($('ghost1'),g.base,g.p1);line($('ghost2'),g.p1,g.p2);line($('ghost3'),g.p2,g.p3);setAttrs($('ghost-joint1'),{cx:g.p1.x,cy:g.p1.y});setAttrs($('ghost-joint2'),{cx:g.p2.x,cy:g.p2.y});}else $('ghost-arm').style.display='none';
+    setAttrs($('base-mark'),{cx:p.base.x,cy:p.base.y});setAttrs($('joint1'),{cx:p.p1.x,cy:p.p1.y});setAttrs($('joint2'),{cx:p.p2.x,cy:p.p2.y});setAttrs($('tip'),{cx:p.p3.x,cy:p.p3.y});setAttrs($('target-now'),{cx:t.x,cy:t.y});
+    line($('quill'),{x:p.p3.x-16*Math.cos(p.psi),y:p.p3.y-16*Math.sin(p.psi)},{x:p.p3.x+22*Math.cos(p.psi),y:p.p3.y+22*Math.sin(p.psi)});
+    line($('orient-guide'),t,{x:t.x+35*Math.cos(t.psi),y:t.y+35*Math.sin(t.psi)});
+    setAttrs($('pose-label'),{x:p.p3.x+10,y:p.p3.y-12});$('pose-label').textContent=s.pass?`reachable · Γ=${s.branchCount} · ${s.branch}`:`${s.cause} · ${fmt(s.positionError)}u`;
+    $('pose-label').style.fill=s.pass?'var(--ink)':'var(--danger)';$('index-label').textContent=`k ${i} / ${active.samples.length-1}`;$('scrubber').value=i;
+  }
+
+  function updateReadouts(){
+    const active=activeSolution(),m=active.metrics;$('stat-reach').textContent=`${fmt(100*m.reachableFraction,1)}%`;$('stat-mean').textContent=`${fmt(m.meanPosition,2)}u`;$('stat-max').textContent=`${fmt(m.maxPosition,2)}u`;$('stat-angle').textContent=`${fmt(deg(m.meanAngle),2)}°`;$('stat-ratio').textContent=fmt(m.lengthRatio,4);$('stat-branches').textContent=`${fmt(100*m.twoBranchFraction,1)}%`;
+    $('l1-out').textContent=`${controls.l1.value}u`;$('l2-out').textContent=`${controls.l2.value}u`;$('l3-out').textContent=`${controls.l3.value}u`;$('orientation-weight-out').textContent=`${controls.orientationWeight.value}u/rad`;
+    $('scrubber').max=Math.max(0,active.samples.length-1);
+  }
+
+  function updateLedger(){
+    const body=$('ledger-body'),rows=activeSolution().ledger;body.replaceChildren();
+    if(!rows.length){body.innerHTML='<tr><td colspan="6" class="empty">No failures at the current tolerances.</td></tr>';return;}
+    for(const r of rows){const tr=document.createElement('tr');tr.innerHTML=`<td>${r.start}${r.end!==r.start?`–${r.end}`:''}</td><td>${r.cause}</td><td>${r.count}</td><td>${fmt(r.maxPosition,2)}u</td><td>${fmt(deg(r.maxAngle),2)}°</td><td>${r.active}</td>`;body.appendChild(tr);}
+  }
+
+  function updateAblation(){
+    const body=$('ablation-body');body.replaceChildren();
+    const rows=[['A0 · locked wrist','q₁, q₂','x, y',state.solution.cases.point],['A1 · free wrist','q₁, q₂, q₃','x, y, ψ',state.solution.cases.pose]];
+    for(const [name,active,output,run] of rows){const m=run.metrics,tr=document.createElement('tr');tr.innerHTML=`<td>${name}</td><td>${active}</td><td>${output}</td><td>${fmt(100*m.reachableFraction,1)}%</td><td>${fmt(m.meanPosition,2)}u</td><td>${fmt(deg(m.meanAngle),2)}°</td><td>${fmt(100*m.twoBranchFraction,1)}%</td><td>${m.branchSwitches}</td>`;body.appendChild(tr);}
+    const p=state.solution.cases.point.metrics,o=state.solution.cases.pose.metrics;
+    $('ablation-finding').textContent=`Current γ: two-control point acceptance ${fmt(100*p.reachableFraction,1)}%; three-control pose acceptance ${fmt(100*o.reachableFraction,1)}%. Dimensionally, x–y needs rank 2 while x–y–ψ needs rank 3; the percentages also reflect the changed workspace when q₃ is locked. This is mechanics, not 3–6–9. Γ=2 marks observations that still admit both elbow histories.`;
+  }
+
+  function render(){
+    solveTrace();drawStatic();drawPose();updateReadouts();updateLedger();updateAblation();
+    $('status').className='status';$('status').textContent=`Solved both ablations across ${state.target.length} target poses · ${state.targetName}.`;
+  }
+  function scheduleRender(){ cancelAnimationFrame(state.renderFrame);state.renderFrame=requestAnimationFrame(render); }
+
+  function applyPreset(name){
+    if(!presets[name])return;stopPlayback();state.target=presets[name]();state.targetName=name==='closure'?'π Closure':name[0].toUpperCase()+name.slice(1);state.sourceSchema='built-in';state.index=0;
+    document.querySelectorAll('[data-preset]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.preset===name)));render();
+  }
+
+  function stagePoint(event){const r=stage.getBoundingClientRect();return{x:clamp((event.clientX-r.left)*760/r.width,10,750),y:clamp((event.clientY-r.top)*520/r.height,10,510)};}
+  function stopPlayback(){state.playing=false;cancelAnimationFrame(state.playFrame);$('play').textContent='Play';}
+  function animate(ts){
+    if(!state.playing)return;if(!state.lastPlay)state.lastPlay=ts;
+    if(ts-state.lastPlay>32){state.index++;state.lastPlay=ts;if(state.index>=activeSolution().samples.length){state.index=0;stopPlayback();}drawPose();}
+    if(state.playing)state.playFrame=requestAnimationFrame(animate);
+  }
+  function togglePlayback(){if(state.playing){stopPlayback();return;}state.playing=true;state.lastPlay=0;$('play').textContent='Pause';state.playFrame=requestAnimationFrame(animate);}
+
+  function normalizeImport(data){
+    if(!data||!Array.isArray(data.points)||data.points.length<2)throw new Error('Expected a CSG JSON object with a points array.');
+    const clean=data.points.map(p=>({x:Number(p.x),y:Number(p.y),psi:Number.isFinite(Number(p.heading))?rad(Number(p.heading)):NaN})).filter(p=>Number.isFinite(p.x)&&Number.isFinite(p.y));
+    if(clean.length<2)throw new Error('The points array has fewer than two valid x/y samples.');
+    return tangentize(clean);
+  }
+  function importFile(file){
+    const reader=new FileReader();
+    reader.onload=()=>{try{const data=JSON.parse(String(reader.result));state.target=normalizeImport(data);state.targetName=file.name;state.sourceSchema=data.schema||'unknown';state.index=0;document.querySelectorAll('[data-preset]').forEach(b=>b.setAttribute('aria-pressed','false'));render();$('status').textContent=`Imported ${state.target.length} poses from ${file.name}.`;}catch(err){$('status').className='status error';$('status').textContent=`Import failed: ${err.message}`;}};
+    reader.onerror=()=>{$('status').className='status error';$('status').textContent='Import failed: the file could not be read.';};reader.readAsText(file);
+  }
+  function download(name,type,text){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+  function exportJSON(){
+    if(!state.solution)return;
+    const pack=run=>({metrics:{...run.metrics,meanAngleDegrees:deg(run.metrics.meanAngle)},ledger:run.ledger,samples:run.samples.map((s,k)=>({k,target:s.target,qDegrees:s.q.map(deg),actual:{x:s.pose.p3.x,y:s.pose.p3.y,psiDegrees:deg(s.pose.psi)},positionError:s.positionError,angleErrorDegrees:deg(s.angleError),pass:s.pass,cause:s.cause,active:s.active,singularity:s.singularity,branch:s.branch,branchCount:s.branchCount,recoveryBranches:s.recovery.map(r=>({branch:r.branch,qDegrees:r.q.map(deg)}))}))});
+    const payload={schema:'SAR-QUILL-v0.2',parameterization:'traversal-indexed; time-free',generatedAt:new Date().toISOString(),target:{name:state.targetName,sourceSchema:state.sourceSchema,points:state.target},base:state.base,config:{...state.solution.config,mins:state.solution.config.mins.map(deg),maxs:state.solution.config.maxs.map(deg),angleTolerance:deg(state.solution.config.angleTolerance)},displayedCase:controls.taskMode.value,cases:{point:pack(state.solution.cases.point),pose:pack(state.solution.cases.pose)}};download('sar-three-joint-quill-run-v0.2.json','application/json',JSON.stringify(payload,null,2));
+  }
+  function exportSVG(){
+    const clone=stage.cloneNode(true);clone.setAttribute('xmlns',NS);clone.setAttribute('width','760');clone.setAttribute('height','520');const style=document.createElementNS(NS,'style');style.textContent='.envelope{fill:none;stroke:#b6c0cf;stroke-width:1.5;stroke-dasharray:7 6}.target-path{fill:none;stroke:#245fc7;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}.actual-path{fill:none;stroke:#087f5b;stroke-width:2.5}.error-spoke{stroke:#ae293c;stroke-width:1.2;opacity:.48}.fail-dot{fill:#ae293c}.ghost-link{stroke:#7636ba;stroke-width:7;stroke-dasharray:7 7;opacity:.35}.ghost-joint{fill:#fff;stroke:#7636ba;opacity:.5}.link{stroke:#7636ba;stroke-width:13;stroke-linecap:round}.link-core{stroke:#d9c2ef;stroke-width:4}.joint{fill:#fff;stroke:#7636ba;stroke-width:4}.base{fill:#172033}.quill{stroke:#bb6610;stroke-width:4}.tip{fill:#087f5b}.target-now{fill:none;stroke:#245fc7;stroke-width:3}.orient-guide{stroke:#245fc7;stroke-width:2;stroke-dasharray:4 3}.pose-label{fill:#172033;font:12px system-ui}';clone.insertBefore(style,clone.firstChild);download('sar-three-joint-quill-v0.2.svg','image/svg+xml',new XMLSerializer().serializeToString(clone));
+  }
+
+  Object.values(controls).forEach(c=>c.addEventListener('input',scheduleRender));
+  document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>applyPreset(b.dataset.preset)));
+  $('place-base').addEventListener('click',()=>{state.placing=!state.placing;$('place-base').setAttribute('aria-pressed',String(state.placing));$('stage-note').textContent=state.placing?'Tap the field to place the shoulder.':'Target geometry is never warped to fit the arm.';});
+  stage.addEventListener('pointerdown',e=>{if(!state.placing)return;state.base=stagePoint(e);state.placing=false;$('place-base').setAttribute('aria-pressed','false');$('stage-note').textContent='Target geometry is never warped to fit the arm.';render();});
+  $('play').addEventListener('click',togglePlayback);$('step').addEventListener('click',()=>{stopPlayback();state.index=(state.index+1)%activeSolution().samples.length;drawPose();});
+  $('scrubber').addEventListener('input',()=>{stopPlayback();state.index=Number($('scrubber').value);drawPose();});
+  $('import-button').addEventListener('click',()=>$('file-input').click());$('file-input').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])importFile(e.target.files[0]);e.target.value='';});
+  $('export-json').addEventListener('click',exportJSON);$('export-svg').addEventListener('click',exportSVG);
+  applyPreset('arc');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "python": "3.12.14",
+  "engine_dependencies": "standard library",
+  "browser_test": "Playwright with Chromium 153",
+  "pdf_build": "ReportLab with DejaVu fonts",
+  "release": "0.2",
+  "verification_date": "2026-09-22"
+}

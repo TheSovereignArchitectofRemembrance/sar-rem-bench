@@ -1,0 +1,158 @@
+{
+  "fixed_driven": {
+    "closure": "CONTINUE",
+    "max_L": 0.75,
+    "initial_energy": 0.5,
+    "final_energy": 1.4238901669513846,
+    "work": 5.217905384537402,
+    "loss": 4.2940317118373805,
+    "stop_loss": 0.0,
+    "total_loss": 4.2940317118373805,
+    "stop_event_count": 0,
+    "energy_residual": 1.6494251362964008e-05,
+    "mean_crossing_rate_hz": 0.3352850015780265,
+    "period_cv": 0.2773043414141871
+  },
+  "compliant_driven": {
+    "closure": "CONTINUE",
+    "max_L": 1.3737816345286147,
+    "initial_energy": 0.5,
+    "final_energy": 1.5325652020553509,
+    "work": 6.526137540009653,
+    "loss": 5.094133429449865,
+    "stop_loss": 0.39946227115185673,
+    "total_loss": 5.4935957006017215,
+    "stop_event_count": 4,
+    "energy_residual": 2.336264741975569e-05,
+    "mean_crossing_rate_hz": 0.2706707312911282,
+    "period_cv": 0.0982204182337296
+  },
+  "free_oscillator": {
+    "closure": "CONTINUE",
+    "max_L": 0.75,
+    "initial_energy": 0.5,
+    "final_energy": 0.49999999999971,
+    "work": 0.0,
+    "loss": 0.0,
+    "stop_loss": 0.0,
+    "total_loss": 0.0,
+    "stop_event_count": 0,
+    "energy_residual": -2.899902540320909e-13,
+    "mean_crossing_rate_hz": 0.31830988618412215,
+    "period_cv": 1.4486815461093597e-10
+  },
+  "damped": {
+    "closure": "STABLE",
+    "max_L": 0.75,
+    "initial_energy": 0.5,
+    "final_energy": 1.5128404203788937e-06,
+    "work": 0.0,
+    "loss": 0.49999848716374085,
+    "stop_loss": 0.0,
+    "total_loss": 0.49999848716374085,
+    "stop_event_count": 0,
+    "energy_residual": 4.161226918597549e-12,
+    "mean_crossing_rate_hz": 0.2950812149578981,
+    "period_cv": null
+  },
+  "breach": {
+    "closure": "CONSTRAINT_BREACH",
+    "max_L": 0.751196006565329,
+    "initial_energy": 6.93,
+    "final_energy": 6.9297458085805825,
+    "work": 0.0,
+    "loss": 0.0002541914107899775,
+    "stop_loss": 0.0,
+    "total_loss": 0.0002541914107899775,
+    "stop_event_count": 0,
+    "energy_residual": -8.627204853284276e-12,
+    "mean_crossing_rate_hz": null,
+    "period_cv": null
+  },
+  "handoff": {
+    "recovery_counts": [
+      8,
+      2,
+      1
+    ],
+    "own_reachable": [
+      "A",
+      "B"
+    ],
+    "shared_reachable": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "duplicate_reachable": [
+      "A",
+      "B"
+    ],
+    "packet": {
+      "body": {
+        "schema": "SAR-REM-HANDOFF-1",
+        "author": "Steve Brown / SAR; synthetic demonstration",
+        "field": "four fixed vertices; one closed square traversal; no lifts or retracing",
+        "raw_trace": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "segmentation": "four consecutive straight edges",
+        "evidence": [
+          [
+            "start",
+            0
+          ],
+          [
+            "direction",
+            1
+          ]
+        ],
+        "encoding": "vertex order; +1 advances counterclockwise",
+        "assumptions": [
+          "recorded order retained",
+          "vertex labels shared"
+        ],
+        "provenance": [
+          "synthetic-square-v1"
+        ],
+        "limits": "family-relative reconstruction, not historical attribution"
+      },
+      "sha256": "16ea95efc15305e551c18b92769be302b6d4d2a9bf0d615f5938f86d23a2aaa2"
+    },
+    "note": "Synthetic compatible rule composition, not a measured human learning effect."
+  },
+  "legacy": {
+    "expansion_steps": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "final_scale": 256,
+    "octave_label": 9
+  }
+}

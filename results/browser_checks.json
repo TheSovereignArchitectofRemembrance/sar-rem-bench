@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "checks": [
+    "fixed_driven JS/Python parity",
+    "compliant_driven JS/Python parity",
+    "free_oscillator JS/Python parity",
+    "damped JS/Python parity",
+    "breach JS/Python parity",
+    "numerical failure separation",
+    "nondefault reachability start",
+    "CV unavailable for one period",
+    "separate loss display",
+    "all four panels and controls",
+    "8 -> 2 -> 1 recovery",
+    "duplicate memory no-gain",
+    "phase cancellation",
+    "mobile no horizontal overflow",
+    "play/pause",
+    "run JSON export"
+  ],
+  "page_errors": []
+}

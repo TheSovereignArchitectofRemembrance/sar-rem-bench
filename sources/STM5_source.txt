@@ -1,0 +1,111 @@
+Source: STM-5- The Five-Phase Persistence Law(20260921-172819).docx
+Library identity: libfile_c66b448b506081918c00fbb821e73e7e
+Read: 2026-09-21. Extracted content snapshot, not original file bytes.
+
+<PARSED TEXT FOR PAGE: 1 / 4>
+STM-5: The Five-Phase Persistence Law
+Statement of the law
+STM-5 (Five-Phase Persistence Law):
+In any bounded physical system, the conversion of transient throughput (e.g., propagating 
+energy/information) into persistent state (stored energy/structure/record) requires a minimum 
+sequence of five functional phases: capture, internal redistribution, mode conversion, 
+work/selection, and resolution (storage or irreversible dissipation). Any system that reliably 
+accumulates persistent state must implement these phases explicitly or implicitly.
+Definitions (tight and measurable)
+ Throughput: A propagating flux that is not intrinsically persistent within the system 
+(e.g., radiation, waves, transient signals, flow).
+ Persistent state: A stable configuration whose lifetime is long compared to the 
+interaction timescale (e.g., chemical potential, structural order, memory/record, stored 
+energy).
+ Bounded system: A region or mechanism with definable interactions and constraints 
+(physical boundary, potential well, network boundary, control boundary).
+ Phase: A functional role in the transformation pipeline (not necessarily a thermodynamic 
+phase).
+The five phases (canonical form)
+Phase 1 – Capture (Containment)
+Function: Intercept throughput and prevent immediate escape.
+Operational test: If capture is absent, input mostly exits without changing system state beyond 
+negligible perturbation.
+Examples (physics-safe):
+ Absorption cross-section / coupling
+ Boundary condition / impedance matching
+ Potential well / confinement
+<PARSED TEXT FOR PAGE: 2 / 4>
+Phase 2 – Internal Redistribution (Retention / Echo)
+Function: Re-route intercepted energy/information within the system while limiting loss, 
+enabling controlled delivery to conversion sites.
+Operational test: If redistribution is absent, the system shows high loss to scattering/leakage 
+and poor targeting; efficiency collapses under noise.
+Examples:
+ Diffusive random walk in dense media
+ Network routing/relays
+ Resonant transfer within a cavity or manifold
+Phase 3 – Mode Conversion (Translation)
+Function: Convert throughput into a non-propagating or less-escaping form that can support 
+persistence and work (e.g., field excitation → potential gradient).
+Operational test: If conversion is absent, the system can “light up” transiently but cannot 
+accumulate durable capacity.
+Examples:
+ Radiative → mechanical/thermal → chemical potential
+ Signal → state variable
+ Wave energy → stored potential
+Phase 4 – Work/Selection (Observer / Control Action)
+Function: Use converted capacity to drive directed change (bias outcomes) rather than 
+symmetric dissipation.
+Operational test: If selection is absent, energy thermalizes without producing structured 
+outputs; output resembles equilibrium relaxation.
+Examples:
+ Rectification / gating / thresholding
+ Feedback control
+ Non-equilibrium biasing of transitions
+(Physics-safe note: “observer” here means selection function, not consciousness.)
+<PARSED TEXT FOR PAGE: 3 / 4>
+Phase 5 – Resolution (Storage or Irreversible Dissipation)
+Function: Terminate the cycle by committing energy/information to (a) persistent storage or (b) 
+irreversible export/dissipation (vent).
+Operational test: If resolution is absent, the system oscillates, saturates, or destabilizes; 
+persistent state fails to accumulate or decays rapidly.
+Examples:
+ Chemical storage / structural ordering
+ Radiative cooling / exhaust
+ Entropy export required for ongoing non-equilibrium operation
+Why STM-5 is a law (not just a model)
+STM-5 follows from constraints, not domain narratives:
+1. You cannot store propagation as propagation in a bounded system without conversion 
+(photons/waves don’t “pile up” stably without a container mode).
+2. Conversion without capture is impossible (nothing stays long enough to convert).
+3. Work without selection collapses into symmetry and dissipation (no net structured 
+output).
+4. Persistence without resolution fails (no commit step; the system saturates or re￾randomizes).
+5. Non-equilibrium persistence requires entropy export (resolution includes venting).
+STM-5 is therefore a minimum functional decomposition for persistence under physical 
+constraints.
+Falsifiability and predictions (this makes it publishable)
+STM-5 is falsified if you can demonstrate a bounded system that:
+A) reliably converts transient throughput into persistent state
+B) while genuinely lacking one of the five phases (not merely hiding it)
+STM-5 predicts:
+<PARSED TEXT FOR PAGE: 4 / 4>
+1. Efficiency limits are dominated by Phase 2 and Phase 3 losses (retention/redistribution
++ conversion), not by “capture” alone.
+2. Systems that appear “mysteriously efficient” will reveal a strong Phase-2 
+coherence/retention mechanism and a clean Phase-3 conversion gate.
+3. When persistent-state accumulation fails in real deployments, the failure mode will trace 
+to one (or more) of:
+o poor coupling (Phase 1)
+o uncontrolled leakage/scatter (Phase 2)
+o weak conversion / wrong mode (Phase 3)
+o lack of rectification/selection (Phase 4)
+o no commit/vent path (Phase 5)
+These are testable engineering diagnostics.
+Notes on scope (keeps it physics-safe)
+ STM-5 introduces no new forces and does not compete with established physics.
+ It is a systems-level invariance: a grammar for transformation pipelines observed across 
+domains (thermodynamics, radiative transport, control systems, information-processing 
+systems).
+ “Observer” is functional, not metaphysical: it means a mechanism that breaks 
+symmetry and selects outcomes (gating, thresholds, feedback).
+Optional compact form (for a paper abstract)
+STM-5 formalizes a minimum five-phase pipeline required for any bounded system to 
+convert transient flux into persistent state: capture → internal redistribution → mode 
+conversion → selection/work → resolution (storage or dissipation). The law is constraint￾derived, domain-agnostic, and falsifiable by counterexample.

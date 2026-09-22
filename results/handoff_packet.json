@@ -1,0 +1,50 @@
+{
+  "body": {
+    "schema": "SAR-REM-HANDOFF-1",
+    "author": "Steve Brown / SAR; synthetic demonstration",
+    "field": "four fixed vertices; one closed square traversal; no lifts or retracing",
+    "raw_trace": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "segmentation": "four consecutive straight edges",
+    "evidence": [
+      [
+        "start",
+        0
+      ],
+      [
+        "direction",
+        1
+      ]
+    ],
+    "encoding": "vertex order; +1 advances counterclockwise",
+    "assumptions": [
+      "recorded order retained",
+      "vertex labels shared"
+    ],
+    "provenance": [
+      "synthetic-square-v1"
+    ],
+    "limits": "family-relative reconstruction, not historical attribution"
+  },
+  "sha256": "16ea95efc15305e551c18b92769be302b6d4d2a9bf0d615f5938f86d23a2aaa2"
+}

@@ -1,0 +1,31 @@
+test_breach_is_not_forced_growth (test_engine.Dynamics.test_breach_is_not_forced_growth) ... ok
+test_damping_settles (test_engine.Dynamics.test_damping_settles) ... ok
+test_dt_refinement (test_engine.Dynamics.test_dt_refinement) ... ok
+test_expansion_depends_on_compliance (test_engine.Dynamics.test_expansion_depends_on_compliance) ... ok
+test_invalid_parameters (test_engine.Dynamics.test_invalid_parameters) ... ok
+test_policy_separable (test_engine.Dynamics.test_policy_separable) ... ok
+test_unforced_energy_and_frequency (test_engine.Dynamics.test_unforced_energy_and_frequency) ... ok
+test_enclosure_requires_edges (test_engine.Geometry.test_enclosure_requires_edges) ... ok
+test_finite_segments (test_engine.Geometry.test_finite_segments) ... ok
+test_open_chain_rejected (test_engine.Geometry.test_open_chain_rejected) ... ok
+test_operators_retain_source_and_transform (test_engine.Geometry.test_operators_retain_source_and_transform) ... ok
+test_overlap_and_point (test_engine.Geometry.test_overlap_and_point) ... ok
+test_regular_tetrahedron (test_engine.Geometry.test_regular_tetrahedron) ... ok
+test_triangle_and_bowtie (test_engine.Geometry.test_triangle_and_bowtie) ... ok
+test_conflict_and_action (test_engine.Recovery.test_conflict_and_action) ... ok
+test_contraction_and_duplicate (test_engine.Recovery.test_contraction_and_duplicate) ... ok
+test_flow_audit_and_missingness (test_engine.Recovery.test_flow_audit_and_missingness) ... ok
+test_handoff_integrity (test_engine.Recovery.test_handoff_integrity) ... ok
+test_interference (test_engine.Recovery.test_interference) ... ok
+test_legacy_receipt (test_engine.Recovery.test_legacy_receipt) ... ok
+test_reachable_gain_and_no_gain (test_engine.Recovery.test_reachable_gain_and_no_gain) ... ok
+test_safe_actions_expand_under_nonempty_contraction (test_engine.Recovery.test_safe_actions_expand_under_nonempty_contraction) ... ok
+test_cv_requires_two_periods (test_engine.Refinements.test_cv_requires_two_periods) ... ok
+test_numerical_failure_precedes_breach (test_engine.Refinements.test_numerical_failure_precedes_breach) ... ok
+test_reachable_nondefault_start (test_engine.Refinements.test_reachable_nondefault_start) ... ok
+test_stop_ledger_reconciles (test_engine.Refinements.test_stop_ledger_reconciles) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.450s
+
+OK
